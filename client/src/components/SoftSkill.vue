@@ -1,7 +1,7 @@
 <template>
   <div class="mt-3">
     <div class="transition-container">
-      <h5>{{ currentState.question }}</h5>
+      <h5 style="  height: 40px;">{{ currentState.question }}</h5>
       <div class="input-group">
         <textarea class="form-control" v-model="currentState.answer"></textarea>
       </div>
@@ -42,8 +42,7 @@
   <img
     src="https://www.datanovia.com/en/wp-content/uploads/2020/12/radar-chart-in-r-customized-fmstb-radar-chart-1.png"
     alt="Skills"
-    height="100%"
-    width="100%"
+    width="300"
   />
 </template>
 
@@ -286,14 +285,14 @@ const stateMachine = {
 };
 
 const currentState = ref(stateMachine.states[stateMachine.currentState]);
-
+const emit = defineEmits(['sendData']);
 function nextQuestion() {
   if (currentState.value.next !== null) {
     currentState.value = stateMachine.states[currentState.value.next];
-    emit("send-data", stateMachine.states);
+    emit('sendData', stateMachine.states);
   }
 }
-const emit = defineEmits("send-data");
+
 
 function prevQuestion() {
   if (currentState.value.prev !== null) {
