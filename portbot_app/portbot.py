@@ -8,8 +8,8 @@ from langchain.document_loaders import UnstructuredFileLoader
 import os
 
 # Chat UI title
-st.header("Upload your own files and ask questions like ChatGPT")
-st.subheader('File type supported: PDF/DOCX/TXT :city_sunrise:')
+st.header("PortBOT 🤖")
+st.subheader('Helping You To Navigate Your PSA Career Journey! 🛳️')
 
 # File uploader in the sidebar on the left
 with st.sidebar:
@@ -24,7 +24,7 @@ os.environ["OPENAI_API_KEY"] = openai_api_key
 llm = ChatOpenAI(temperature=0,max_tokens=1000, model_name="gpt-3.5-turbo",streaming=True)
         
 with st.sidebar:
-    uploaded_files = st.file_uploader("Please upload your files", accept_multiple_files=True, type=None)
+    uploaded_files = st.file_uploader("Please upload your resume ind .docx format", accept_multiple_files=True, type=None)
     st.info("Please refresh the browser if you decided to upload more files to reset the session", icon="🚨")
 # Check if files are uploaded
 if uploaded_files:
@@ -80,6 +80,20 @@ if uploaded_files:
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
+    # Check if the introductory message has already been sent
+    if "intro_sent" not in st.session_state:
+        # Custom bot name
+        custom_name = "PortBOT"
+
+        # Display custom introduction message
+        custom_intro = f"Hi, I'm {custom_name}! Whether you're seeking answers to common questions, exploring available roles, learning about our company, or even looking to submit your resume, I've got you covered! Feel free to ask me anything, and let's embark on this exciting voyage together. How can I assist you today?"
+
+        # Write custom intro to assistant messages
+        st.session_state.messages.append({"role": "assistant", "content": custom_intro})
+
+        # Mark the introductory message as sent
+        st.session_state["intro_sent"] = True
+
     # Display chat messages from history on app rerun
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
@@ -105,4 +119,4 @@ if uploaded_files:
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
 else:
-    st.write("Please upload your files.")
+    st.write("Please upload your resume to begin.")
