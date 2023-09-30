@@ -24,7 +24,7 @@ os.environ["OPENAI_API_KEY"] = openai_api_key
 llm = ChatOpenAI(temperature=0,max_tokens=1000, model_name="gpt-3.5-turbo",streaming=True)
         
 with st.sidebar:
-    uploaded_files = st.file_uploader("Please upload your files", accept_multiple_files=True, type=None)
+    uploaded_files = st.file_uploader("Please upload your resume", accept_multiple_files=True, type=None)
     st.info("Please refresh the browser if you decided to upload more files to reset the session", icon="🚨")
 # Check if files are uploaded
 if uploaded_files:
