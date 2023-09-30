@@ -90,7 +90,8 @@ if uploaded_files:
 
     # Display custom introduction message
     custom_intro = f"Hi, I'm {custom_name}! Whether you're seeking answers to common questions, exploring available roles, learning about our company, or even looking to submit your resume, I've got you covered! Feel free to ask me anything, and let's embark on this exciting voyage together. How can I assist you today?"
-    st.write(custom_intro)
+    # write custom intro to assistant messages
+    st.session_state.messages.append({"role": "assistant", "content": custom_intro})
 
     # Accept user input
     if prompt := st.chat_input("Ask your questions?"):
