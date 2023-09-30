@@ -121,7 +121,7 @@ onMounted(() => {
     window.removeEventListener("click", onClickOutside);
   };
 });
-
+const emit = defineEmits(['sendData']); 
 const TSList = ref([]);
 const addToTSList = () => {
   TSList.value.push({
@@ -137,9 +137,9 @@ const addToTSList = () => {
   // Sort the TSList array by level
   TSList.value.sort((a, b) => b.level - a.level);
 
-  emit("send-data", TSList.value);
+  emit('sendData', TSList.value);
 }
-const  emit  = defineEmits('send-data'); 
+
 
 
 const technicalSkills = [
