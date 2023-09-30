@@ -8,8 +8,8 @@ from langchain.document_loaders import UnstructuredFileLoader
 import os
 
 # Chat UI title
-st.header("Upload your own files and ask questions like ChatGPT")
-st.subheader('File type supported: PDF/DOCX/TXT :city_sunrise:')
+st.header("PortBOT", icon="⚓", icon="🤖")
+st.subheader('Helping You To Navigate Your PSA Career Journey!', icon="🛳️")
 
 # File uploader in the sidebar on the left
 with st.sidebar:
@@ -84,6 +84,13 @@ if uploaded_files:
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
+
+    # Custom bot name
+    custom_name = "PortBOT"
+
+    # Display custom introduction message
+    custom_intro = f"Hi, I'm {custom_name}! Whether you're seeking answers to common questions, exploring available roles, learning about our company, or even looking to submit your resume, I've got you covered! Feel free to ask me anything, and let's embark on this exciting voyage together. How can I assist you today?"
+    st.write(custom_intro)
 
     # Accept user input
     if prompt := st.chat_input("Ask your questions?"):
