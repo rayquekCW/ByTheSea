@@ -1,7 +1,7 @@
 langchain==0.0.305
 streamlit==1.27.1
 openai==0.28.1
-chromadb <= 0.4.13
+chromadb <= 0.3.29
 tiktoken==0.5.1
 pypdf==3.16.2
 unstructured[all-docs]
