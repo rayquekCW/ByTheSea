@@ -32,19 +32,19 @@ with st.sidebar:
 # Initialize ChatOpenAI model
 llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-3.5-turbo", streaming=True)
 
-# # Load version history from the text file
-# def load_version_history():
-#     with open("version_history.txt", "r") as file:
-#         return file.read()
+# Load version history from the text file
+def load_version_history():
+    with open("version_history.txt", "r") as file:
+        return file.read()
 
 # Sidebar section for uploading files and providing a YouTube URL
 with st.sidebar:
     uploaded_files = st.file_uploader("Please upload your files", accept_multiple_files=True, type=None)
     youtube_url = st.text_input("YouTube URL")
 
-    # # Create an expander for the version history in the sidebar
-    # with st.sidebar.expander("**Version History**", expanded=False):
-    #     st.write(load_version_history())
+    # Create an expander for the version history in the sidebar
+    with st.sidebar.expander("**Version History**", expanded=False):
+        st.write(load_version_history())
 
     st.info("Please refresh the browser if you decide to upload more files to reset the session", icon="🚨")
 
