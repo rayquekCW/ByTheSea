@@ -8,7 +8,7 @@ from langchain.document_loaders import UnstructuredFileLoader
 import os
 
 # Chat UI title
-st.header("PortBOT", icon="⚓", icon="🤖")
+st.header("PortBOT", icon="🤖")
 st.subheader('Helping You To Navigate Your PSA Career Journey!', icon="🛳️")
 
 # File uploader in the sidebar on the left
