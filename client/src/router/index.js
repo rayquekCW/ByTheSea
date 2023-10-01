@@ -23,7 +23,7 @@ const router = createRouter({
       component: portConnections,
     },
     {
-      path: "/skillsreporting",
+      path: "/lighthouse",
       name: "SkillsReportingView",
       component: SkillsReportingView,
     },

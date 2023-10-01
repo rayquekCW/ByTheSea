@@ -95,7 +95,7 @@
         >
           Get Feedback <span v-if="jobRole">for</span> {{ jobRole }}
         </button>
-        <ol class="my-3">
+        <ol class="my-3 fw-bold">
           <li :hidden="parentTechSkill != ''">Fill in Technical Skills</li>
           <li :hidden="parentSoftSkill != ''">Fill in Soft Skills</li>
           <li :hidden="parentRoleDetail != ''">Select an interested Job</li>

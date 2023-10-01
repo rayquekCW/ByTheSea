@@ -1,18 +1,18 @@
 <template>
   <div>
-    <h5 class=" mt-3" >Select a job that you are interest:</h5>
+    <h5 class=" mt-3" >Select a job that you are interested:</h5>
     <div
       v-for="(jobRole, index) in jobRolesWithPercentages"
       :key="index"
-      class="job-role-item pb-3 border-bottom"
+      class="job-role-item pb-3"
       @click="selectedRole(jobRole)"
     >
       <div
-        class="card-body"
-        :class="{ 'bg-light': jobRole.jobRole == roleDetails.jobRole }"
+        class="card-body border-bottom rounded p-3 shadow-sm"
+        :class="{ 'bg-light border': jobRole.jobRole == roleDetails.jobRole }"
       >
         <div class="row">
-          <div class="col-10 col-md-8 col-xl-8 col-xxl-9">
+          <div class="col-10 col-md-10 col-xl-10 col-xxl-10">
             <h5
               class="card-title"
               :class="{
