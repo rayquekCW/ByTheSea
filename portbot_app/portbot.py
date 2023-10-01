@@ -108,7 +108,7 @@ if uploaded_files:
         custom_name = "PortBOT"
 
         # Display custom introduction message
-        custom_intro = f"Hi there! 👋 I'm {custom_name}, your personalized recruitment assistant. Whether you're exploring job opportunities, need assistance with your application, or have questions about [Company Name], I'm here to help. Feel free to ask me anything about our open positions, company culture, or application process. Let's get started on finding the perfect role for you! 🚀"
+        custom_intro = f"Hi there! 👋 I'm {custom_name}, your personalized recruitment assistant. Whether you're exploring job opportunities, need assistance with your application, or have questions about PSA, I'm here to help. Feel free to ask me anything about our open positions, company culture, or application process. Let's get started on finding the perfect role for you! 🚀"
 
         # Write custom intro to assistant messages
         st.session_state.messages.append({"role": "assistant", "content": custom_intro})
