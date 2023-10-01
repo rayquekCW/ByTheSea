@@ -29,13 +29,6 @@ with st.sidebar:
     
 # Check if files are uploaded
 if uploaded_files:
-    # Define the path of the default knowledge base file
-    default_knowledge_base = "external_knowledge_base.docx"
-
-    print(uploaded_files)
-
-    # add knowledge base file to uploaded files
-    uploaded_files.append(default_knowledge_base)
 
     # Print the number of files to console
     print(f"Number of files uploaded: {len(uploaded_files)}")
@@ -44,6 +37,20 @@ if uploaded_files:
     if "processed_data" not in st.session_state:
         # Load the data from uploaded PDF files
         documents = []
+        # Add knowledge base file to documents
+        base_file_path = os.path.join(os.getcwd(), "external-knowledge_base.docx")
+
+        # Save the knowledge base file to disk
+        with open(base_file_path, "wb") as f:
+            f.write(base_file_path.getvalue())
+
+        # Use UnstructuredFileLoader to load the knowledge base file
+        base_file_loader = UnstructuredFileLoader(base_file_path)
+        base_loaded_documents = base_loader.load()
+        
+        # Extend the main documents list with the loaded documents
+        documents.extend(base_loaded_documents)
+
         for uploaded_file in uploaded_files:
             # Get the full file path of the uploaded file
             file_path = os.path.join(os.getcwd(), uploaded_file.name)
