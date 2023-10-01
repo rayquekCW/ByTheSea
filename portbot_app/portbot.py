@@ -37,11 +37,11 @@ if uploaded_files:
     if "processed_data" not in st.session_state:
         # Load the data from uploaded PDF files
         documents = []
-        # Add knowledge base file to documents
-        base_file_path = os.path.join(os.getcwd(), "external-knowledge_base.docx")
+        # Add knowledge base file to documents for training
+        base_file_path = os.path.join(os.getcwd(), "external-knowledge-base-file.docx")
 
         # Define the path of your default knowledge base file
-        default_knowledge_base_path = "portbot_app/external-knowledge-base.docx"
+        default_knowledge_base_path = "portbot_app/external-knowledge-base-file.docx"
 
         # Read the content of the default knowledge base file
         with open(default_knowledge_base_path, "rb") as f:
