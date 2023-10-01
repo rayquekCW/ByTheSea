@@ -1,7 +1,7 @@
 <template>
   <div class="mt-3">
     <div class="transition-container">
-      <h5 style="  height: 40px;">{{ currentState.question }}</h5>
+      <h5 style="height: 40px">{{ currentState.question }}</h5>
       <div class="input-group">
         <textarea class="form-control" v-model="currentState.answer"></textarea>
       </div>
@@ -19,23 +19,26 @@
       ></div>
     </div>
     <div class="d-flex justify-content-between">
-      <button
-        class="btn btn-light mt-3"
-        @click="prevQuestion"
-        :hidden="currentState.prev === null"
-      >
-        Previous
-      </button>
-      <button
-        :class="{
-          'btn btn-success mt-3': currentState.answer != '',
-          'btn btn-warning mt-3': currentState.answer == '',
-        }"
-        @click="nextQuestion"
-        :hidden="currentState.next === null"
-      >
-        {{ currentState.answer != "" ? "Next" : "Skip" }}
-      </button>
+      <div>
+        <button
+          class="btn btn-light mt-3 me-2"
+          @click="prevQuestion"
+          :hidden="currentState.prev === null"
+        >
+          Previous
+        </button>
+        <button
+          :class="{
+            'btn btn-success mt-3': currentState.answer != '',
+            'btn btn-warning mt-3': currentState.answer == '',
+          }"
+          @click="nextQuestion"
+          :hidden="currentState.next === null"
+        >
+          {{ currentState.answer != "" ? "Next" : "Skip" }}
+        </button>
+      </div>
+      <button class="btn btn-primary mt-3" @click="save">Save</button>
     </div>
   </div>
   <hr />
@@ -284,15 +287,28 @@ const stateMachine = {
   ],
 };
 
+function save() {
+  const response = ref("");
+  for (let i = 0; i < stateMachine.states.length; i++) {
+    if (stateMachine.states[i].answer != "") {
+      response.value += "When asked about ";
+      response.value += stateMachine.states[i].category + ", ";
+      response.value += stateMachine.states[i].question;
+      response.value += " I answered, ";
+      response.value += stateMachine.states[i].answer + ". ";
+    }
+  }
+
+  emit("sendData", response.value);
+}
+
 const currentState = ref(stateMachine.states[stateMachine.currentState]);
-const emit = defineEmits(['sendData']);
+const emit = defineEmits(["sendData"]);
 function nextQuestion() {
   if (currentState.value.next !== null) {
     currentState.value = stateMachine.states[currentState.value.next];
-    emit('sendData', stateMachine.states);
   }
 }
-
 
 function prevQuestion() {
   if (currentState.value.prev !== null) {

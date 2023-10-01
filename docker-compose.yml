@@ -29,6 +29,8 @@ services:
                 condition: service_healthy
         networks:
             - bts_network
+        environment:
+            OPENAI_API_KEY: ${OPENAI_API_KEY}
 
     bts_db:
         container_name: bts_db_mysql

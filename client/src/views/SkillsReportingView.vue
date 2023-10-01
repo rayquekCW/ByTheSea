@@ -62,7 +62,7 @@
             role="tabpanel"
             aria-labelledby="home-tab"
           >
-            <TechnicalSkills @sendData="cTSList" />
+            <TechnicalSkills @sendData="promptTechSkill" />
           </div>
           <div
             class="tab-pane fade"
@@ -70,7 +70,7 @@
             role="tabpanel"
             aria-labelledby="profile-tab"
           >
-            <SoftSkills @sendData="cSKList" />
+            <SoftSkills @sendData="promptSoftSkill" />
           </div>
           <div
             class="tab-pane fade"
@@ -78,13 +78,57 @@
             role="tabpanel"
             aria-labelledby="contact-tab"
           >
-            <Jobs :staff-skills="PTSList"  />
+            <Jobs :staff-skills="PTSList" @sendData="promptRoleDetail" />
           </div>
         </div>
       </div>
       <div class="col">
-        <h2>Gaps and Job recommandations</h2>
-        <p>Loading....</p>
+        <h2>Gaps and Roadmap recommandations</h2>
+        <button
+          class="btn btn-primary mt-3"
+          @click="fetchData"
+          :disabled="
+            parentRoleDetail == '' ||
+            parentSoftSkill == '' ||
+            parentTechSkill == ''
+          "
+        >
+          Get Feedback <span v-if="jobRole">for</span> {{ jobRole }}
+        </button>
+        <ol class="my-3">
+          <li :hidden="parentTechSkill != ''">Fill in Technical Skills</li>
+          <li :hidden="parentSoftSkill != ''">Fill in Soft Skills</li>
+          <li :hidden="parentRoleDetail != ''">Select an interested Job</li>
+        </ol>
+        <div v-if="loading" class="text-center">
+          <p>Loading...</p>
+        </div>
+        <div v-if="responseData.job_fit != 'NA'">
+          <h5>
+            Base on our analysis, you are {{ responseData.job_fit }} for this
+            job.
+          </h5>
+          <h5 class="mt-3 text-muted">Technical Skills Recommendations:</h5>
+          <ul>
+            <li v-for="skill in responseData.technical_skills_recommendations">
+              {{ skill }}
+            </li>
+          </ul>
+          <hr />
+          <h5 class="mt-3 text-muted">Soft Skills Recommendations:</h5>
+          <ul>
+            <li v-for="skill in responseData.soft_skills_recommendations">
+              {{ skill }}
+            </li>
+          </ul>
+          <hr />
+          <h5 class="mt-3 text-muted">Personalised Career Roadmap:</h5>
+          <ul>
+            <li v-for="skill in responseData.personalise_career_roadmap">
+              {{ skill }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -96,15 +140,84 @@ import SoftSkills from "../components/SoftSkill.vue";
 import Jobs from "../components/Jobs.vue";
 import { ref } from "vue";
 
-const PTSList = ref([]);
+import axios from "axios";
 
-function cTSList (data) {
-  PTSList.value = data;
+const loading = ref(false);
+
+const responseData = ref({
+  job_fit: "NA",
+  technical_skills_recommendations: [
+    "NA"
+  ],
+  soft_skills_recommendations: [
+    "NA"
+  ],
+  personalise_career_roadmap: [
+    "NA"
+  ]
+  // job_fit: "Not a strong fit",
+  // technical_skills_recommendations: [
+  //   "Obtain formal training or certification in Supply Chain Management",
+  //   "Gain more experience and knowledge in Maritime Operations",
+  // ],
+  // soft_skills_recommendations: [
+  //   "Develop public speaking and presentation skills",
+  //   "Enhance active listening skills",
+  //   "Improve written communication skills",
+  //   "Work on adapting communication style to different audiences",
+  //   "Learn additional conflict resolution strategies",
+  //   "Further develop skills in building relationships and networks",
+  //   "Enhance ability to handle change and uncertainty",
+  //   "Continuously seek opportunities to lead and influence",
+  //   "Strengthen problem-solving skills in complex situations",
+  //   "Work on involving others in the decision-making process",
+  //   "Continuously develop emotional intelligence, particularly in managing and regulating emotions effectively",
+  // ],
+  // personalise_carrer_roadmap: [
+  //   "Take courses or workshops on conflict resolution and mediation to further strengthen skills in managing conflicts within a team",
+  //   "Participate in public speaking or presentation workshops to enhance communication skills in speaking to larger audiences",
+  //   "Seek out opportunities to lead or manage projects to gain formal leadership experience",
+  //   "Enroll in courses or training programs on supply chain management and logistics to deepen technical knowledge in these areas",
+  //   "Participate in workshops or seminars on emotional intelligence to further develop skills in recognizing and managing emotions in the workplace",
+  // ],
+});
+
+const content = ref("");
+async function fetchData() {
+  content.value =
+    parentRoleDetail.value + parentTechSkill.value + parentSoftSkill.value;
+  loading.value = true;
+  try {
+    const response = await axios.post("http://localhost:8080/generate_chat", {
+      // Replace with your API key
+      content: content.value,
+    });
+    console.log(response.data);
+    responseData.value = JSON.parse(response.data);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loading.value = false;
+  }
+}
+
+const jobRole = ref("");
+const parentRoleDetail = ref("");
+const promptRoleDetail = (data) => {
+  parentRoleDetail.value = data[0];
+  jobRole.value = data[1];
 };
 
-const PSKList = ref([]);
-const cSKList = (data) => {
-  PSKList.value = data;
+const parentTechSkill = ref("");
+const PTSList = ref([]);
+function promptTechSkill(data) {
+  parentTechSkill.value = data[0];
+  PTSList.value = data[1];
+}
+
+const parentSoftSkill = ref("");
+const promptSoftSkill = (data) => {
+  parentSoftSkill.value = data;
 };
 </script>
 <style scoped></style>

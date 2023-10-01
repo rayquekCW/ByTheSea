@@ -1,18 +1,30 @@
 <template>
   <div>
+    <h5 class=" mt-3" >Select a job that you are interest:</h5>
     <div
       v-for="(jobRole, index) in jobRolesWithPercentages"
       :key="index"
-      class="job-role-item my-4 border-bottom"
+      class="job-role-item pb-3 border-bottom"
+      @click="selectedRole(jobRole)"
     >
-      <div class="card-body">
+      <div
+        class="card-body"
+        :class="{ 'bg-light': jobRole.jobRole == roleDetails.jobRole }"
+      >
         <div class="row">
           <div class="col-10 col-md-8 col-xl-8 col-xxl-9">
-            <h5 class="card-title no-underline">
+            <h5
+              class="card-title"
+              :class="{
+                'no-underline': jobRole.jobRole != roleDetails.jobRole,
+              }"
+            >
               <a href="#" class="card-link text-normal">{{
                 jobRole.jobRole
               }}</a>
-              <span class="fw-bold badge rounded-pill bg-light text-dark ms-2" style="font-size: small;"
+              <span
+                class="fw-bold badge rounded-pill bg-light text-dark ms-2"
+                style="font-size: small"
                 ><span :class="percentageClass(jobRole.percentage)">{{
                   jobRole.percentage
                 }}</span>
@@ -180,7 +192,10 @@ const calPercentage = (roleSkills) => {
     let match = 0;
     for (let i = 0; i < roleSkills.length; i++) {
       for (let j = 0; j < props.staffSkills.length; j++) {
-        if (roleSkills[i] == props.staffSkills[j].skill && props.staffSkills[j].level >= 50) {
+        if (
+          roleSkills[i] == props.staffSkills[j].skill &&
+          props.staffSkills[j].level >= 50
+        ) {
           match++;
         }
       }
@@ -202,6 +217,7 @@ function percentageClass(percentage) {
 
 const jobRolesWithPercentages = computed(() => {
   // Recalculate the percentages for each job role
+  console.log("changed");
   jobRoles.value.forEach((role) => {
     role.percentage = calPercentage(role.role_skills);
   });
@@ -209,6 +225,39 @@ const jobRolesWithPercentages = computed(() => {
   // Sort the job roles based on the calculated percentage in descending order
   return jobRoles.value.sort((a, b) => b.percentage - a.percentage);
 });
+
+const roleDetails = ref({
+  jobRole: "TBC",
+  role_listing_desc: "No description available",
+  role_skills: ["TBC"],
+});
+
+const emit = defineEmits(["sendData"]);
+const selectedRole = (index) => {
+  roleDetails.value = {
+    jobRole: index.jobRole,
+    role_listing_desc: index.role_listing_desc,
+    role_skills: index.role_skills,
+  };
+  console.log(roleDetails.value);
+  const response = ref(
+    "I am interested in the " +
+      roleDetails.value.jobRole +
+      " role. " +
+      roleDetails.value.role_listing_desc +
+      " It is also required that I have "
+  );
+
+  for (let i = 0; i < roleDetails.value.role_skills.length; i++) {
+    response.value += roleDetails.value.role_skills[i]
+    if (i == roleDetails.value.role_skills.length - 1) {
+      response.value += "."
+    } else {
+      response.value += ", "
+    }
+  }
+  emit("sendData", [response.value, roleDetails.value.jobRole]);
+};
 </script>
 
 <style scoped>

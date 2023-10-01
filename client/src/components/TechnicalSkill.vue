@@ -121,7 +121,7 @@ onMounted(() => {
     window.removeEventListener("click", onClickOutside);
   };
 });
-const emit = defineEmits(['sendData']); 
+const emit = defineEmits(["sendData"]);
 const TSList = ref([]);
 const addToTSList = () => {
   TSList.value.push({
@@ -136,11 +136,14 @@ const addToTSList = () => {
   selectedSkill.value = "";
   // Sort the TSList array by level
   TSList.value.sort((a, b) => b.level - a.level);
-
-  emit('sendData', TSList.value);
-}
-
-
+  const response = ref("These are the technical skills I have: ");
+  for (let i = 0; i < TSList.value.length; i++) {
+    response.value +=
+      TSList.value[i].title + " in " + TSList.value[i].skill + ", ";
+  }
+  response.value += ".";
+  emit("sendData", [response.value, TSList.value]);
+};
 
 const technicalSkills = [
   "Maritime Operations",
