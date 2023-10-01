@@ -13,7 +13,7 @@ st.subheader('Helping You To Navigate Your PSA Career Journey! 🛳️')
 
 # File uploader in the sidebar on the left
 with st.sidebar:
-    openai_api_key = st.text_input("OpenAI API Key", type="password")
+    openai_api_key = st.text_input("Login Key, type="password")
 if not openai_api_key:
     st.info("Please add your OpenAI API key to continue.")
     st.stop()
@@ -26,10 +26,16 @@ llm = ChatOpenAI(temperature=0,max_tokens=1000, model_name="gpt-3.5-turbo",strea
 with st.sidebar:
     uploaded_files = st.file_uploader("Please upload your resume in .docx format", accept_multiple_files=True, type=None)
     st.info("Please refresh the browser to reset the session if you decided to upload a new resume or start a new conversation", icon="🚨")
+    
 # Check if files are uploaded
 if uploaded_files:
-    # Add knowledge base file to uploaded files
-    uploaded_files.append("external-knowledge_base.docx")
+    # Define the path of the default knowledge base file
+    default_knowledge_base = "external_knowledge_base.docx"
+
+    print(uploaded_files)
+
+    # add knowledge base file to uploaded files
+    uploaded_files.append(default_knowledge_base)
 
     # Print the number of files to console
     print(f"Number of files uploaded: {len(uploaded_files)}")
