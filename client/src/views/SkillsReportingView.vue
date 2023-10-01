@@ -101,7 +101,7 @@
           <li :hidden="parentRoleDetail != ''">Select an interested Job</li>
         </ol>
         <div v-if="loading" class="text-center">
-          <p>Loading...</p>
+          <loader />
         </div>
         <div v-if="responseData.job_fit != 'NA'">
           <h5>
@@ -139,6 +139,7 @@ import TechnicalSkills from "../components/TechnicalSkill.vue";
 import SoftSkills from "../components/SoftSkill.vue";
 import Jobs from "../components/Jobs.vue";
 import { ref } from "vue";
+import loader from "../components/loader.vue";
 
 import axios from "axios";
 
@@ -146,15 +147,9 @@ const loading = ref(false);
 
 const responseData = ref({
   job_fit: "NA",
-  technical_skills_recommendations: [
-    "NA"
-  ],
-  soft_skills_recommendations: [
-    "NA"
-  ],
-  personalise_career_roadmap: [
-    "NA"
-  ]
+  technical_skills_recommendations: ["NA"],
+  soft_skills_recommendations: ["NA"],
+  personalise_career_roadmap: ["NA"],
   // job_fit: "Not a strong fit",
   // technical_skills_recommendations: [
   //   "Obtain formal training or certification in Supply Chain Management",

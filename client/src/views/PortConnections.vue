@@ -188,7 +188,7 @@ async function submitPreferences() {
     minimum.value +
     " and " +
     maximum.value +
-    ". Provide the name, location, price, description. Provide data in an array of json format with name, location, price, description as keys";
+    ". Provide the name, location, price, description. Provide data in an array of json format with name, location, price, description as keys. follow the format { name: 'Indoor Skydiving',location: 'iFly Singapore, Sentosa',price: '40 - 50 SGD per person', description:'Experience the thrill of skydiving in a vertical wind tunnel, perfect for adventure seekers.'}";
 
   try {
     const response = await axios.post("http://localhost:8080/api/safe", {
@@ -208,28 +208,28 @@ async function submitPreferences() {
       {
         name: "Escape Room Challenge",
         location: "Various locations in Singapore",
-        priceRange: "40 - 50 SGD per person",
+        price: "40 - 50 SGD per person",
         description:
           "Solve puzzles, find clues, and escape from themed rooms within a time limit. Great for testing your teamwork and problem-solving skills.",
       },
       {
         name: "Virtual Reality Gaming",
         location: "Various VR arcades in Singapore",
-        priceRange: "40 - 50 SGD per person",
+        price: "40 - 50 SGD per person",
         description:
           "Immerse yourself in exciting virtual worlds and play multiplayer games with your friend in VR.",
       },
       {
         name: "Cooking Class",
         location: "Various cooking schools in Singapore",
-        priceRange: "40 - 50 SGD per person",
+        price: "40 - 50 SGD per person",
         description:
           "Learn to prepare delicious dishes from expert chefs and enjoy a hands-on cooking experience.",
       },
       {
         name: "Indoor Trampoline Park",
         location: "Bounce Singapore, Cineleisure Orchard",
-        priceRange: "40 - 50 SGD per person",
+        price: "40 - 50 SGD per person",
         description:
           "Jump and flip to your heart's content on interconnected trampolines in a fun and energetic environment.",
       },
