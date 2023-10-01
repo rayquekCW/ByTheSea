@@ -1,35 +1,61 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import SideNavbar from './components/SideNavbar.vue';
 </script>
 
 <template>
-  <!-- <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" /> -->
   <header>
     <div class="wrapper d-flex justify-content-center w-100">
     </div>
   </header>
-  <RouterView />
+
+  <div class="app">
+    <SideNavbar/>
+    <RouterView />
+  </div>
+  
 </template>
 
-<style scoped>
-/* .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<style lang="scss">
+:root {
+    --primary: #7cbeb6;
+    --secondary: #0582ca;
+    --tertiary: #fcbf01;
+    --dark: #08090a;
+    --grey: #dbd3d8;
+    --light: #faf9f6;
+    --sidenavbar-width: 300px;
+    --root-em: 18px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa); */
-/* } */
+
+body {
+    background-color: var(--light);
+}
+
+button {
+    border: none;
+    outline: none;
+    appearance: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.app {
+    display: flex;
+
+    main {
+        flex: 1 1 0;
+        padding: 2rem;
+
+        @media (max-width: 768px) {
+            padding: 1rem;
+        }
+    }
+}
 </style>
