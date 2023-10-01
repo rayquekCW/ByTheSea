@@ -44,7 +44,7 @@ Close docker
 docker-compose down -v
 ```
 
-### 5. If want to run frontend locally, at the client directory:
+### 5. To run frontend locally, at the client directory:
 ```
 npm install
 ```
