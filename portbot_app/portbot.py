@@ -14,12 +14,15 @@ st.subheader('Helping You To Navigate Your PSA Career Journey! 🛳️')
 # # File uploader in the sidebar on the left
 # with st.sidebar:
 #     openai_api_key = st.text_input("Login Key", type="password")
-# if not openai_api_key:
+# if not # The `openai_api_key` variable is used to store the OpenAI API key, which is required to
+# access the OpenAI GPT-3 language model. This key is used to authenticate and authorize the
+# requests made to the OpenAI API.
+openai_api_key:
 #     st.info("Please add your Login Key to continue.")
 #     st.stop()
 
-# Set OPENAI_API_KEY as an environment variable
-os.environ["OPENAI_API_KEY"] = openai_api_key
+# # Set OPENAI_API_KEY as an environment variable
+# os.environ["OPENAI_API_KEY"] == openai_api_key
 
 llm = ChatOpenAI(temperature=0,max_tokens=1000, model_name="gpt-3.5-turbo",streaming=True)
         

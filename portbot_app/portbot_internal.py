@@ -18,8 +18,8 @@ st.subheader('Helping You To Navigate Life @PSA! 🛳️')
 #     st.info("Please add your Login Key to continue.")
 #     st.stop()
 
-# Set OPENAI_API_KEY as an environment variable
-os.environ["OPENAI_API_KEY"] = openai_api_key
+# # Set OPENAI_API_KEY as an environment variable
+# os.environ["OPENAI_API_KEY"] = openai_api_key
 
 llm = ChatOpenAI(temperature=0,max_tokens=1000, model_name="gpt-3.5-turbo",streaming=True)
         
