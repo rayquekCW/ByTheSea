@@ -1,14 +1,16 @@
 <template>
-  <div class="container-fluid">
-    <h1 class="my-4 text-center">PortConnections</h1>
-    <h6 class="fst-italic mb-3 text-center">
-      Bridging Teams, Building Relations
-    </h6>
+  <div class="container-fluid p-0">
+    <div
+      class="bannerImage"
+      style="
+        background-image: url('https://img.freepik.com/premium-vector/drawing-boat-port-vietnam-hoi_252525-41.jpg');
+      "
+    ></div>
     <!-- User Input Form -->
     <div class="row my-4">
-      <div class="" v-if="!submitted">
+      <div class="" v-if="!submitted || loading">
         <div>
-          <div class="mb-4">
+          <div class="mb-4 mx-4">
             <h1 class="my-4 text-center">PortConnections</h1>
             <h6 class="fst-italic mb-3 text-center">
               Bridging Teams, Building Relations
@@ -28,7 +30,11 @@
                   <label for="NumPeople" class="form-label"
                     >Number of people</label
                   >
-                  <select v-model="numPeople" class="form-select" id="foodType">
+                  <select
+                    v-model="numPeople"
+                    class="form-select"
+                    id="NumPeople"
+                  >
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -65,19 +71,20 @@
                     </div>
                   </div>
                 </div>
-                <div class="text-center">
+                <div class="text-center" v-if="!submitted && !loading">
                   <button type="submit" class="defaultBtn w-50">Submit</button>
                 </div>
+                <div v-if="submitted && loading" class="my-3"><loader /></div>
               </form>
             </div>
           </div>
         </div>
       </div>
       <!-- Buddy matched -->
-      <div class="" v-if="submitted && displayUsers">
+      <div class="mx-4" v-if="submitted && displayUsers && !loading">
         <div class="card">
           <div class="card-body text-center">
-            <h3 class="card-title">Buddies Matched</h3>
+            <h2 class="card-title">Matched Buddies</h2>
             <!-- Display buddy's name and profile picture -->
             <div class="row text-center">
               <div
@@ -98,7 +105,7 @@
           </div>
         </div>
       </div>
-      <div class="" v-if="submitted">
+      <div class="mx-4" v-if="submitted && !loading">
         <!-- Activities -->
         <div class="row my-3">
           <div
@@ -116,7 +123,7 @@
                   </div>
                   <div class="mb-1">
                     <h6 class="fw-bold d-inline">Price range: &nbsp;</h6>
-                    {{ activity.priceRange }}
+                    {{ activity.price }}
                   </div>
                   <div class="mb-1">
                     <h6 class="fw-bold">Activity information:</h6>
@@ -140,6 +147,7 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import loader from "../components/loader.vue";
 const placeType = ref("");
 const numPeople = ref("");
 const minimum = ref("");
@@ -147,6 +155,7 @@ const maximum = ref("");
 const submitted = ref(false);
 const displayUsers = ref([]);
 const groupActivities = ref([]);
+const loading = ref(false);
 
 const users = [
   {
@@ -166,6 +175,8 @@ const users = [
 async function submitPreferences() {
   //give me outdoor activities that can done in a group of 3. location and price within 20-30 in singapore and description
   //get from ai
+  loading.value = true;
+  submitted.value = true;
   displayUsers.value = users.slice(0, numPeople.value);
   const prompt =
     "Provide me a list of " +
@@ -177,56 +188,52 @@ async function submitPreferences() {
     minimum.value +
     " and " +
     maximum.value +
-    ". Provide the name, location, price range, description. Provide data in an array of json format with name, location, priceRange, description as keys";
+    ". Provide the name, location, price, description. Provide data in an array of json format with name, location, price, description as keys";
 
-  // try {
-  //   const response = await axios.post("http://localhost:8080/api/safe", {
-  //     content: prompt,
-  //   });
-  //   groupActivities.value = JSON.parse(response.data);
-  //   console.log(groupActivities.value);
-  // } catch (error) {
-  //   console.error(error);
-  // }
-
-  // }
-  groupActivities.value = [
-    {
-      name: "Escape Room",
-      location: "Various locations",
-      priceRange: "SGD 25 - 35 per person",
-      description:
-        "asd sdasdad adsasda asdasasd asdasdasdasdasd asdasdasdadsa sdasdasdsdasda asd ad a",
-    },
-    {
-      name: "Go-Karting",
-      location: "Karting Arena, Jurong",
-      priceRange: "SGD 20 - 30 per person",
-      description:
-        "asd sdasdad adsasda asdasasd asdasdasdasdasd asdasdasdadsa sdasdasdsdasda asd ad a",
-    },
-    {
-      name: "Indoor Trampoline Park",
-      location: "Bounce Singapore, Orchard",
-      priceRange: "SGD 20 - 30 per person",
-      description:
-        "asd sdasdad adsasda asdasasd asdasdasdasdasd asdasdasdadsa sdasdasdsdasda asd ad a",
-    },
-    {
-      name: "Karaoke",
-      location: "Various karaoke bars",
-      priceRange: "SGD 15 - 25 per person (including drinks)",
-      description:
-        "asd sdasdad adsasda asdasasd asdasdasdasdasd asdasdasdadsa sdasdasdsdasda asd ad a",
-    },
-    {
-      name: "Virtual Reality Gaming",
-      location: "V-Room, Clarke Quay",
-      priceRange: "SGD 20 - 30 per person",
-      description:
-        "asd sdasdad adsasda asdasasd asdasdasdasdasd asdasdasdadsa sdasdasdsdasda asd ad a",
-    },
-  ];
-  submitted.value = true;
+  try {
+    const response = await axios.post("http://localhost:8080/api/safe", {
+      content: prompt,
+    });
+    groupActivities.value = JSON.parse(response.data);
+    loading.value = false;
+  } catch (error) {
+    groupActivities.value = [
+      {
+        name: "Indoor Skydiving",
+        location: "iFly Singapore, Sentosa",
+        priceRange: "40 - 50 SGD per person",
+        description:
+          "Experience the thrill of skydiving in a vertical wind tunnel, perfect for adventure seekers.",
+      },
+      {
+        name: "Escape Room Challenge",
+        location: "Various locations in Singapore",
+        priceRange: "40 - 50 SGD per person",
+        description:
+          "Solve puzzles, find clues, and escape from themed rooms within a time limit. Great for testing your teamwork and problem-solving skills.",
+      },
+      {
+        name: "Virtual Reality Gaming",
+        location: "Various VR arcades in Singapore",
+        priceRange: "40 - 50 SGD per person",
+        description:
+          "Immerse yourself in exciting virtual worlds and play multiplayer games with your friend in VR.",
+      },
+      {
+        name: "Cooking Class",
+        location: "Various cooking schools in Singapore",
+        priceRange: "40 - 50 SGD per person",
+        description:
+          "Learn to prepare delicious dishes from expert chefs and enjoy a hands-on cooking experience.",
+      },
+      {
+        name: "Indoor Trampoline Park",
+        location: "Bounce Singapore, Cineleisure Orchard",
+        priceRange: "40 - 50 SGD per person",
+        description:
+          "Jump and flip to your heart's content on interconnected trampolines in a fun and energetic environment.",
+      },
+    ];
+  }
 }
 </script>
