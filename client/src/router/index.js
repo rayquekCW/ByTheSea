@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import home from "../views/HomeView.vue";
+import portBot from "../views/PortBotView.vue";
 import portConnections from "../views/PortConnections.vue";
 import SkillsReportingView from "../views/SkillsReportingView.vue";
 
@@ -10,6 +11,11 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: home,
+    },
+    {
+      path: "/portbot",
+      name: "portBot",
+      component: portBot,
     },
     {
       path: "/portconnections",

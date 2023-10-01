@@ -11,11 +11,11 @@ const toggleMenu = () => {
 <template>
     <aside :class="`${isMenuOpen ? 'is-isMenuOpen' : ''}`">
         <div class="logo" :hidden="!isMenuOpen">
-            <img src="" alt="logo_small" />
+            <img src="../assets/logo.png" alt="logo_small" />
         </div>
         <div class="logo" :hidden="isMenuOpen">
             <img
-                src=""
+                src="https://cdn.icon-icons.com/icons2/2699/PNG/512/docker_tile_logo_icon_168248.png"
                 alt="brand_logo"
             />
         </div>
@@ -35,16 +35,16 @@ const toggleMenu = () => {
                 <span class="text">Home</span>
             </router-link>
             <router-link class="button" to="/portbot">
-                <span class="material-icons">pageview</span>
-                <span class="text">Port Bot</span>
+                <span class="material-icons">face</span>
+                <span class="text">PortBot</span>
             </router-link>
             <router-link class="button" to="/lighthouse">
-                <span class="material-icons">show_chart</span>
-                <span class="text">Light House</span>
+                <span class="material-icons">pageview</span>
+                <span class="text">LightHouse</span>
             </router-link>
             <router-link class="button" to="/portconnections">
-              <span class="material-icons">show_chart</span>
-              <span class="text">Port Connections</span>
+              <span class="material-icons">diversity_1</span>
+              <span class="text">PortConnections</span>
           </router-link>
         </div>
 
