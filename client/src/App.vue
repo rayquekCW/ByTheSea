@@ -3,10 +3,6 @@ import SideNavbar from './components/SideNavbar.vue';
 </script>
 
 <template>
-  <header>
-    <div class="wrapper d-flex justify-content-center w-100">
-    </div>
-  </header>
 
   <div class="app">
     <SideNavbar/>

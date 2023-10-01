@@ -1,14 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
-import about from "../views/AboutView.vue";
+import home from "../views/HomeView.vue";
 import portConnections from "../views/PortConnections.vue";
 import SkillsReportingView from "../views/SkillsReportingView.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
       name: "home",
-      component: about,
+      component: home,
     },
     {
       path: "/portconnections",
