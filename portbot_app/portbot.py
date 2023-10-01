@@ -53,7 +53,7 @@ if uploaded_files:
 
         # Use UnstructuredFileLoader to load the knowledge base file
         base_file_loader = UnstructuredFileLoader(base_file_path)
-        base_loaded_documents = base_loader.load()
+        base_loaded_documents = base_file_loader.load()
         
         # Extend the main documents list with the loaded documents
         documents.extend(base_loaded_documents)
