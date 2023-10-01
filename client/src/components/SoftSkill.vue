@@ -42,11 +42,6 @@
     </div>
   </div>
   <hr />
-  <img
-    src="https://www.datanovia.com/en/wp-content/uploads/2020/12/radar-chart-in-r-customized-fmstb-radar-chart-1.png"
-    alt="Skills"
-    width="300"
-  />
 </template>
 
 <script setup>
