@@ -42,7 +42,7 @@ if uploaded_files:
 
         # Save the knowledge base file to disk
         with open(base_file_path, "wb") as f:
-            f.write(base_file_path.getvalue())
+            f.write(base_file_path)
 
         # Use UnstructuredFileLoader to load the knowledge base file
         base_file_loader = UnstructuredFileLoader(base_file_path)
