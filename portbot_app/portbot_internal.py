@@ -85,8 +85,7 @@ if "intro_sent" not in st.session_state:
     custom_name = "PortBOT"
 
     # Display custom introduction message
-    custom_intro = f"Hi I'm PSA's internal assistant PortBOT! 🤖 I'm here to make your work life easier. Need help with HR inquiries, IT support, training resources, or available internal roles? Just let me know! I can also provide quick access to company policies, help you with expense management, and more. Feel free to ask anything you need assistance with. Let's make your workday more efficient! 💼
-"
+    custom_intro = f"Hi I'm PSA's internal assistant PortBOT! 🤖 I'm here to make your work life easier. Need help with HR inquiries, IT support, training resources, or available internal roles? Just let me know! I can also provide quick access to company policies, help you with expense management, and more. Feel free to ask anything you need assistance with. Let's make your workday more efficient! 💼"
 
     # Write custom intro to assistant messages
     st.session_state.messages.append({"role": "assistant", "content": custom_intro})
