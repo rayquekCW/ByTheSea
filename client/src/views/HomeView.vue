@@ -25,6 +25,18 @@ const motivationMessages = [
 	"You are stronger than you think, and your potential is limitless. Keep striving for your dreams!",
 ];
 
+const users= [
+  "Ray Quek",
+  "Aaron Kwah",
+  "Maurice Ho",
+  "Xavier Koo",
+]
+
+const user = ref(
+  users[Math.floor(Math.random() * users.length)]
+);
+
+
 const motivationMessage = ref(
 	motivationMessages[Math.floor(Math.random() * motivationMessages.length)]
 );
@@ -32,7 +44,18 @@ const motivationMessage = ref(
 
 <template>
 	<main class="home-page mx-3">
-		<div class="px-4 py-5 my-5 text-center bg-primary">
+		<div
+			class="px-4 py-5 my-5 text-center border-bottom"
+			style="background-color: white"
+		>
+			<!-- Add a logo in the center -->
+			<img
+				class="d-block mx-auto mb-4"
+				src="https://cdn.icon-icons.com/icons2/2699/PNG/512/docker_tile_logo_icon_168248.png"
+				alt=""
+				width="200"
+				height="200"
+			/>
 			<h1 class="display-5 fw-bold">Welcome to Opportunity Portal</h1>
 			<div class="col-lg-6 mx-auto">
 				<p class="lead mb-4">
@@ -56,7 +79,7 @@ const motivationMessage = ref(
 				</div>
 				<div class="col-lg-6">
 					<h1 class="display-5 fw-bold lh-1 mb-3">
-						Welcome Back <br /><strong>Ray Quek</strong>
+						Welcome Back <br /><strong>{{user}}</strong>
 					</h1>
 					<h2 class="fw-bold lh-1 mb-3">Daily Motivation Message</h2>
 					<p class="lead">{{ motivationMessage }}</p>
@@ -101,7 +124,10 @@ const motivationMessage = ref(
 				</router-link>
 			</div>
 			<div class="col">
-				<router-link to="/portconnections" style="text-decoration: none">
+				<router-link
+					to="/portconnections"
+					style="text-decoration: none"
+				>
 					<div class="card">
 						<img
 							src="https://images.unsplash.com/photo-1545987796-200677ee1011?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
@@ -121,4 +147,22 @@ const motivationMessage = ref(
 	</main>
 </template>
 
-<style scoped="scss"></style>
+<style scoped="scss">
+/* Custom CSS for the text overlay */
+.image-container {
+	position: relative;
+}
+
+.overlay-text {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.5); /* Background color with opacity */
+	color: #fff; /* Text color */
+	padding: 20px; /* Adjust padding as needed */
+}
+
+.overlay-text h2 {
+	font-size: 24px; /* Adjust font size */
+}
+</style>

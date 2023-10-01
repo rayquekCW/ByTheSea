@@ -31,7 +31,7 @@ import SideNavbar from './components/SideNavbar.vue';
 }
 
 body {
-    background-color: var(--light);
+    background-color: white;
 }
 
 button {
