@@ -36,3 +36,4 @@ uvicorn==0.23.2
 Werkzeug==2.3.7
 zipp==3.16.2
 requests==2.31.0
+openai==0.28.1
