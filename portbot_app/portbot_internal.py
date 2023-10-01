@@ -28,9 +28,6 @@ with st.sidebar:
     st.info("Please refresh the browser to reset the session if you decided to upload a new resume or start a new conversation", icon="🚨")
 # Check if files are uploaded
 if uploaded_files:
-    # Add knowledge base file to uploaded files
-    uploaded_files.append("external-knowledge_base.docx")
-
     # Print the number of files to console
     print(f"Number of files uploaded: {len(uploaded_files)}")
 
@@ -78,6 +75,7 @@ if uploaded_files:
     # Initialize Langchain's QA Chain with the vectorstore
     qa = ConversationalRetrievalChain.from_llm(llm,vectorstore.as_retriever())
 
+
     # Initialize chat history
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -88,7 +86,7 @@ if uploaded_files:
         custom_name = "PortBOT"
 
         # Display custom introduction message
-        custom_intro = f"Hi there! 👋 I'm {custom_name}, your personalized recruitment assistant. Whether you're exploring job opportunities, need assistance with your application, or have questions about [Company Name], I'm here to help. Feel free to ask me anything about our open positions, company culture, or application process. Let's get started on finding the perfect role for you! 🚀"
+        custom_intro = f"Hi, I'm {custom_name}!🤖 I'm here to make your work life easier. Need help with HR inquiries, IT support, training resources, or scheduling meetings? Just let me know! I can also provide quick access to company policies, help you with expense management, and more. Feel free to ask anything you need assistance with. Let's make your workday more efficient! 💼"
 
         # Write custom intro to assistant messages
         st.session_state.messages.append({"role": "assistant", "content": custom_intro})
