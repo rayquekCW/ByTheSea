@@ -41,7 +41,7 @@ if uploaded_files:
         base_file_path = os.path.join(os.getcwd(), "external-knowledge_base.docx")
 
         # Define the path of your default knowledge base file
-        default_knowledge_base_path = "path/to/your/default-knowledge-base.docx"
+        default_knowledge_base_path = "/external-knowledge_base.docx"
 
         # Read the content of the default knowledge base file
         with open(default_knowledge_base_path, "rb") as f:
